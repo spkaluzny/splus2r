@@ -1,10 +1,14 @@
 "peaks" <- 
-function(x, span = 3, strict = TRUE)
+function(x, span = 3, strict = TRUE, endbehavior = 0)
 {
     span <- as.integer(span)
     if(span %% 2 != 1) {
         span <- span + 1
         cat("span increased to next odd value: ", span, "\n")
+    }
+    if(!(endbehavior %in% c(0, 1, 2))) {
+        stop("endbehavior value of ", endbehavior,
+            " is not valid, must be one of: 0, 1 or 2")
     }
     halfspan <- (span - 1)/2
     a.x <- attributes(x)
@@ -17,15 +21,7 @@ function(x, span = 3, strict = TRUE)
         m <- min(x[x.ok])
         x[!x.ok] <- m - 1
     }
-    z <- .Fortran("splus2rpeaks",
-        as.double(x),
-        as.integer(halfspan),
-        as.logical(strict),
-        as.integer(dx[1]),
-        as.integer(dx[2]),
-        double(length(x)))[[6]]
-    mode(z) <- "logical"
-    dim(z) <- dx
+    z <- .Call("dotCallable_splus2Rpeaks", x, halfspan, strict, endbehavior)
     if(dfp) {
         z <- as.data.frame(z)
     }
