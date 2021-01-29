@@ -1,3 +1,4 @@
+# useDynLib(splus2R, .registration = TRUE)
 useDynLib(splus2R)
 import(graphics, stats, methods)
 exportPattern(".*")
