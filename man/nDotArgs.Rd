@@ -7,8 +7,7 @@
 
 \arguments{
 
-\item{...}{... arguments or real arguments in the
-call to the function whcih calls tt{nDotArgs}.}
+\item{...}{... arguments or real arguments in the call to the function which calls \code{nDotArgs}.}
 }
 
 \value{
