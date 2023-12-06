@@ -1,6 +1,6 @@
 Package: splus2R
 Title: Supplemental S-PLUS Functionality in R
-Version: 1.3-3
+Version: 1.3-4
 Authors@R: c(person("William", "Constantine", role=c("aut")),
   person("Tim", "Hesterberg", role=c("aut")),
   person("Knut", "Wittkowski", role=c("ctb")),
