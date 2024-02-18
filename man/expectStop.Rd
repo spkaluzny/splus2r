@@ -24,9 +24,7 @@ expectWarnings(expr, expected)
   stops when it should, and gives the right message.
   For example, this may be in a file called by do.test:
 \preformatted{{
-  expectStop(var(1:5, 1:4),
-             if(is.R()) "incompatible"
-             else "x and y must have the same number of")
+  expectStop(var(1:5, 1:4), "incompatible")
 }
 }
 The function returns \code{TRUE} if

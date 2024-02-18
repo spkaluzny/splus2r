@@ -25,30 +25,27 @@ function(file, verbose = FALSE, strict = FALSE, local = FALSE, check)
   # typically the global environment (objects created remain there
   # after `do.test' is finished).
   # `local=T' causes `do.test' to create and work in a new environment.
-  if(is(file, "connection") || (is.R() && inherits(file, "connection")))
-    # R's is() currently ignores inheritance
+  if(inherits(file, "connection")) {
     cat("---- Test connection:",
-	if(is.R()) summary(file)$description else file@description, 
-	"Class:", class(file), "----\n") else {
+   	  summary(file)$description,
+	    "Class:", class(file), "----\n")
+  } else {
     cat("------- Test file:", file, "---------\n")
   }
   E <- parse(file = file, n = -1)
-  # For R, printing expressions that fail would miss comments;
-  # comments are stored with source text in an attribute "srcref".
-  if(is.R())
-    E2 <- attr(E, "srcref")
+  E2 <- attr(E, "srcref")
 
   Env <- if(local) new.env() else .GlobalEnv
   for(I in seq(along = E)) {
     if(!missing(check))
       eval(check, envir=Env) #eval(check, local)
     if(verbose)
-      print(if(is.R()) E2[[I]] else E[[I]])
+      print(E2[[I]])
     val <- try(eval(E[[I]], envir=Env), silent=TRUE)
     failed <- (!identical(val, TRUE))
     if(verbose || failed) {
       if(!verbose)
-	print(if(is.R()) E2[[I]] else E[[I]])
+	      print(E2[[I]])
       print(val)
       if(strict && failed)
         stop("Test Failed")

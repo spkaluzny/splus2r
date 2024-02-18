@@ -20,7 +20,7 @@ expectWarnings( { # example of using expectWarnings
 }, expected = "provided 2 variables to replace 1 v")
 
 expectWarnings(is.na(log(-1)), # another example
-    expected = if(is.R()) "NaNs produced" else "NAs generated")
+    expected = "NaNs produced"
 
 expectStop(lm(5), # example using expectStop
            expected = "invalid formula")
